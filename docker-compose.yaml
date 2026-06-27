@@ -1,0 +1,15 @@
+services:
+  prometheus:
+    image: prom/prometheus:v3
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./scrape_configs:/etc/prometheus/scrape_configs:ro
+    ports:
+      - "9090:9090"
+      
+  node:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+      - "9100:9100"
