@@ -2,7 +2,10 @@ grafana:
     enabled: false
 
 alertmanager:
-    enabled: false
+    enabled: true
+
+defaultRules:
+    create: false
 
 prometheus:
     enabled: true

@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+    name: my-node-app-disk-alerts
+    labels:
+        release: monitoring
+spec:
+    groups:
+        - name: my-node-app.disk
+          rules:
+              - alert: HostHighDiskUsage
+                expr: |
+                    100 - (
+                      node_filesystem_free_bytes{fstype!~"tmpfs|ramfs|autofs|sashfs|devtmpfs|squashfs"}
+                      /
+                      node_filesystem_size_bytes{fstype!~"tmpfs|ramfs|autofs|sashfs|devtmpfs|squashfs"}
+                    * 100) > 80
+                for: 15m
+                labels:
+                    severity: warning
+                annotations:
+                    summary: "High disk usage on {{ $labels.instance }}"
+                    description: >-
+                        Disk usage on {{ $labels.instance }} (mount point "{{ $labels.mountpoint }}") 
+                        has been above 80% for more than 2 minutes (current value: {{ $value | printf "%.1f" }}%).

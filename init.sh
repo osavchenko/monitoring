@@ -6,4 +6,5 @@ helm upgrade --install monitoring prometheus-community/kube-prometheus-stack \
   --create-namespace \
   -f values.yaml
 
-kubectl apply -f my-node-app.yaml
+kubectl apply -f my-node-app.yaml \
+  -f alerts/

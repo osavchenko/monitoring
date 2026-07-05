@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+    name: my-node-app-http-alerts
+    labels:
+        release: monitoring
+spec:
+    groups:
+        - name: my-node-app.http
+          rules:
+              - alert: HighHTTP500ErrorRate
+                expr: |
+                    (
+                      sum by (instance) (rate(nginx_http_response_count_total{status="500"}[2m]))
+                      /
+                      sum by (instance) (rate(nginx_http_response_count_total[2m]))
+                    ) * 100 > 5
+                for: 2m
+                labels:
+                    severity: warning
+                annotations:
+                    summary: "High rate of HTTP 500 errors on {{ $labels.instance }}"
+                    description: >-
+                        {{ $value | printf "%.1f" }}% of requests to {{ $labels.instance }} have
+                        returned HTTP 500 over the last 2 minutes (threshold: 5%).
