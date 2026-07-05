@@ -6,6 +6,10 @@ alertmanager:
 
 prometheus:
     enabled: true
+    prometheusSpec:
+        probeSelectorNilUsesHelmValues: false
+        probeSelector: {}
+        probeNamespaceSelector: {}
 
 kubeControllerManager:
     enabled: false

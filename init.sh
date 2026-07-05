@@ -6,4 +6,7 @@ helm upgrade --install monitoring prometheus-community/kube-prometheus-stack \
   --create-namespace \
   -f values.yaml
 
-kubectl apply -f my-node-app.yaml
+helm upgrade --install blackbox-exporter prometheus-community/prometheus-blackbox-exporter \
+  --namespace monitoring
+
+kubectl apply -f robodreams.yaml
