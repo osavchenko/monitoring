@@ -24,5 +24,5 @@ helm upgrade --install grafana grafana/grafana \
 docker build -t my-php-app:v2 ./php-app
 
 # Apply the application
-kubectl apply -f my-node-app.yaml
-kubectl rollout restart deployment my-node-app
+kubectl apply -f my-php-app.yaml
+kubectl rollout restart deployment my-php-app

@@ -9,7 +9,7 @@ This script will install the monitoring stack via Helm, build the local PHP app 
 
 ## Stop application
 ```shell
-kubectl delete -f my-node-app.yaml
+kubectl delete -f my-php-app.yaml
 ```
 
 ## Access Grafana
@@ -33,6 +33,6 @@ kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-pass
 ## Access the App
 
 ```shell
-kubectl port-forward svc/my-node-app 8080:80
+kubectl port-forward svc/my-php-app 8080:80
 ```
 Generate some traffic: `curl http://localhost:8080`

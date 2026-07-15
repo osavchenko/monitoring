@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-node-app
+  name: my-php-app
   labels:
-    app: my-node-app
+    app: my-php-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-node-app
+      app: my-php-app
   template:
     metadata:
       labels:
-        app: my-node-app
+        app: my-php-app
     spec:
       containers:
-        - name: my-node-app
-          image: my-php-app:v2
+        - name: my-php-app
+          image: my-php-app:v3
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -40,12 +40,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-node-app
+  name: my-php-app
   labels:
-    app: my-node-app
+    app: my-php-app
 spec:
   selector:
-    app: my-node-app
+    app: my-php-app
   ports:
     - name: http
       port: 80
