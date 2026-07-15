@@ -21,7 +21,7 @@ helm upgrade --install grafana grafana/grafana \
   -f grafana-values.yaml
 
 # Build the PHP App Docker image
-docker build -t my-php-app:v2 ./php-app
+docker build -t my-php-app:v5 ./php-app
 
 # Apply the application
 kubectl apply -f my-php-app.yaml

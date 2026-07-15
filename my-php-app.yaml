@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: my-php-app
-          image: my-php-app:v3
+          image: my-php-app:v5
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

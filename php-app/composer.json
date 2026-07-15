@@ -5,6 +5,12 @@
         "guzzlehttp/guzzle": "^7.4",
         "php-http/guzzle7-adapter": "^1.0",
         "monolog/monolog": "^3.10",
-        "open-telemetry/opentelemetry-logger-monolog": "^1.2"
+        "open-telemetry/opentelemetry-logger-monolog": "^1.2",
+        "symfony/framework-bundle": "^8.1",
+        "symfony/monolog-bundle": "^4.0",
+        "symfony/yaml": "^8.1",
+        "symfony/routing": "^8.1",
+        "symfony/http-kernel": "^8.1",
+        "symfony/http-foundation": "^8.1"
     }
 }
