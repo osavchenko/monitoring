@@ -1,22 +1,14 @@
 # Домашнє завдання 3
 
-## Старт додатку для моніторингу
-
-Зібрати образ (далі `./init.sh` розгорне його як Pod у кластері):
+## Ініціалізація / рестарт проекту
 
 ```shell
-docker build -f Dockerfile -t my-node-app:latest .
+./init.sh
 ```
 
 ## Зупинити додаток
 ```shell
 kubectl delete -f my-node-app.yaml
-```
-
-## Ініціалізація / рестарт проекту
-
-```shell
-./init.sh
 ```
 
 ## Отримати доступ до Prometheus
