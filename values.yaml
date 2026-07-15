@@ -1,20 +1,8 @@
-grafana:
-    enabled: false
-
-alertmanager:
-    enabled: false
-
-prometheus:
+loki:
     enabled: true
-
-kubeControllerManager:
-    enabled: false
-
-kubeScheduler:
-    enabled: false
-
-kubeEtcd:
-    enabled: false
-
-kubeProxy:
+promtail:
+    enabled: true
+grafana:
+    enabled: true
+prometheus:
     enabled: false
