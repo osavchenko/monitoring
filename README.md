@@ -1,31 +1,38 @@
-# Домашнє завдання 3
+# Домашнє завдання 9
 
-## Ініціалізація / рестарт проекту
+## Initialize / Restart project
+This script will install the monitoring stack via Helm, build the local PHP app Docker image, and deploy it to Kubernetes:
 
 ```shell
 ./init.sh
 ```
 
-## Зупинити додаток
+## Stop application
 ```shell
 kubectl delete -f my-node-app.yaml
 ```
 
-## Отримати доступ до Prometheus
+## Access Grafana
 
+1. Port-forward Grafana:
 ```shell
-kubectl port-forward svc/monitoring-kube-prometheus-prometheus -n monitoring 9090:9090
+kubectl port-forward svc/grafana -n monitoring 3000:80
+```
+2. Open http://localhost:3000 in your browser.
+3. Get the admin password:
+```shell
+kubectl get secret --namespace monitoring grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ```
 
-### Побачити метрики контейнера
+## See Traces in Grafana
 
-Query з суфіксом `{pod="my-node-app"}`
+1. Go to **Explore** in Grafana.
+2. Select **Tempo** from the datasource dropdown.
+3. Search for traces or use the Service Graph.
 
-Наприклад: `go_memstats_alloc_bytes{container="my-node-app"}`
-
-## Отримати доступ до додатку
+## Access the App
 
 ```shell
 kubectl port-forward svc/my-node-app 8080:80
-kubectl port-forward svc/my-node-app 9100:9100
 ```
+Generate some traffic: `curl http://localhost:8080`
