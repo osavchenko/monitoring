@@ -1,0 +1,63 @@
+graph LR
+    subgraph Hosts["Application Hosts"]
+        subgraph Host1["Host A"]
+            WS1[Web Service A]
+            Otel1[Agent OTel Collector]
+
+            WS1 -->|app logs + web-server logs + traces + errors| Otel1
+        end
+
+        subgraph Host2["Host B"]
+            WS2[Web Service B]
+            Otel2[Agent OTel Collector]
+
+            WS2 -->|app logs + web-server logs + traces + errors| Otel2
+        end
+
+        subgraph Host3["Host C"]
+            WS3[Web Service C]
+            Otel3[Agent OTel Collector]
+
+            WS3 -->|app logs + web-server logs + traces + errors| Otel3
+        end
+    end
+
+    subgraph Observability["Observability Platform"]
+        Otel[Gateway OTel Collector]
+
+        subgraph Storage["Storage"]
+            Prom[(Prometheus)]
+            Loki[(Loki)]
+            Tempo[(Tempo)]
+        end
+
+        Graf[Grafana]
+        AM[Alertmanager]
+        Sentry[(Sentry)]
+
+        Otel -->|metrics| Prom
+        Otel -->|logs| Loki
+        Otel -->|traces| Tempo
+        Otel -->|errors/exceptions| Sentry
+
+        Loki -->|logs| Graf
+        Tempo -->|data source| Graf
+        Prom -->|metrics| Graf[Grafana]
+
+        Prom -->|critical alert rules| AM[Alertmanager]
+    end
+
+    Hosts ~~~ Observability
+    Storage ~~~ Otel
+
+    Otel1 -->|Filtered data| Otel
+    Otel2 -->|Filtered data| Otel
+    Otel3 -->|Filtered data| Otel
+
+    Otel1 -->|Health data| Prom
+    Otel2 -->|Health data| Prom
+    Otel3 -->|Health data| Prom
+
+    AM -->|notify| OnCallOps[DevOps on-call: Slack/PagerDuty/Email]
+    Sentry -->|exception alerts| OnCallDev[Dev on-call: Slack/PagerDuty/Email]
+    Graf -->|application metrics alerts| OnCallDev
